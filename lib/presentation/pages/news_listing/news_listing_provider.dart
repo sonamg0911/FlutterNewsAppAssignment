@@ -1,15 +1,14 @@
 import 'dart:collection';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/data/model/news_list_response.dart';
 import 'package:news_app/di/di_config.dart';
 import 'package:news_app/domain/usecase/news_list_usecase.dart';
 import 'package:news_app/presentation/pages/news_listing/news_list_state.dart';
 
-class NewsListProvider extends ChangeNotifier {
-  NewsListState _state = NewsListLoading();
+class NewsListProvider extends StateNotifier<NewsListState> {
+  NewsListProvider() : super(NewsListLoading());
 
-  get state => _state;
   int _pageNumber = 1;
   int _totalArticles = 0;
   final List<Article> _articles = [];
@@ -28,11 +27,10 @@ class NewsListProvider extends ChangeNotifier {
       _filteredArticles.sort((a, b) => b.publishedAt!.compareTo(a.publishedAt!));
     }
     if(_filteredArticles.isNotEmpty){
-      _state = NewsListLoaded(_filteredArticles);
+      state = NewsListLoaded(_filteredArticles);
     }else {
-      _state = NewsListLoaded(_articles);
+      state = NewsListLoaded(_articles);
     }
-    notifyListeners();
   }
 
   void _createMapForArticles(List<Article> articles) {
@@ -57,8 +55,7 @@ class NewsListProvider extends ChangeNotifier {
         }
       }
     });
-    _state = NewsListLoaded(_filteredArticles);
-    notifyListeners();
+    state = NewsListLoaded(_filteredArticles);
   }
 
   void getNews({bool loadMore = false}) async {
@@ -85,12 +82,10 @@ class NewsListProvider extends ChangeNotifier {
       if(_filteredArticles.isNotEmpty){
         showFilteredList();
       }else {
-        _state = NewsListLoaded(_articles);
-        notifyListeners();
+        state = NewsListLoaded(_articles);
       }
     } catch (e) {
-      _state = NewsListError(e.toString());
-      notifyListeners();
+      state = NewsListError(e.toString());
     }
   }
 }

@@ -18,7 +18,7 @@ class NewsListingPage extends ConsumerStatefulWidget {
 }
 
 class NewsListingPageState extends ConsumerState<NewsListingPage> {
-  final apiProvider = ChangeNotifierProvider<NewsListProvider>((ref) {
+  final apiProvider = StateNotifierProvider<NewsListProvider,NewsListState>((_) {
     return NewsListProvider();
   });
 
@@ -31,16 +31,16 @@ class NewsListingPageState extends ConsumerState<NewsListingPage> {
       double currentScroll = scrollController.position.pixels;
       double delta = MediaQuery.of(context).size.width * 0.20;
       if (maxScroll - currentScroll <= delta) {
-        ref.read(apiProvider).getNews(loadMore: true);
+        ref.read(apiProvider.notifier).getNews(loadMore: true);
       }
     });
-    ref.read(apiProvider).getNews(loadMore: false);
+    ref.read(apiProvider.notifier).getNews(loadMore: false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    NewsListState state = ref.watch(apiProvider).state;
+    NewsListState state = ref.watch(apiProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -58,7 +58,7 @@ class NewsListingPageState extends ConsumerState<NewsListingPage> {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  ref.read(apiProvider).sortExistingArticleList();
+                  ref.read(apiProvider.notifier).sortExistingArticleList();
                 },
               ),
             ),
@@ -72,14 +72,14 @@ class NewsListingPageState extends ConsumerState<NewsListingPage> {
                     context: context,
                     builder: (context) {
                       return NewsListingFilter(
-                        filterKeys: ref.read(apiProvider).articleMap.keys.toList(),
-                        selectedFilterKeys: ref.read(apiProvider).appliedFilteredKeys,
+                        filterKeys: ref.read(apiProvider.notifier).articleMap.keys.toList(),
+                        selectedFilterKeys: ref.read(apiProvider.notifier).appliedFilteredKeys,
                         onApply: () {
                           Navigator.pop(this.context);
-                          if (ref.read(apiProvider).appliedFilteredKeys.isEmpty) {
-                            ref.read(apiProvider).getNews();
+                          if (ref.read(apiProvider.notifier).appliedFilteredKeys.isEmpty) {
+                            ref.read(apiProvider.notifier).getNews();
                           } else {
-                            ref.read(apiProvider).showFilteredList();
+                            ref.read(apiProvider.notifier).showFilteredList();
                           }
                         },
                       );
@@ -112,13 +112,13 @@ class NewsListingPageState extends ConsumerState<NewsListingPage> {
           } else if (state is NewsListError) {
             return CustomErrorWidget(
               onPressed: () {
-                ref.read(apiProvider).getNews(loadMore: false);
+                ref.read(apiProvider.notifier).getNews(loadMore: false);
               },
             );
           } else {
             return CustomErrorWidget(
               onPressed: () {
-                ref.read(apiProvider).getNews(loadMore: false);
+                ref.read(apiProvider.notifier).getNews(loadMore: false);
               },
             );
           }
