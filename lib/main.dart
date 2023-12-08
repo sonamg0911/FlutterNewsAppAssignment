@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/presentation/pages/news_details/news_details_page.dart';
-import 'package:news_app/presentation/pages/news_listing/news_listing_page.dart';
+import 'package:news_app/presentation/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'di/di_config.dart';
@@ -18,11 +17,12 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final _themeData = ThemeData();
+  final _appRouter = AppRouter();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -32,10 +32,7 @@ class MyApp extends StatelessWidget {
         primaryTextTheme: _themeData.primaryTextTheme
             .apply(fontFamily: "Barlow", bodyColor: Colors.black, displayColor: Colors.black38),
       ),
-      routes: {
-        NewsListingPage.path: (_) => const NewsListingPage(),
-        NewsDetailPage.path: (_) => const NewsDetailPage(),
-      },
+      routerConfig: _appRouter.config(),
     );
   }
 }

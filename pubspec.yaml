@@ -52,6 +52,9 @@ dependencies:
   # Date
   intl: ^0.18.1
 
+  # Auto-Route
+  auto_route: ^7.8.4
+
 dependency_overrides:
   watcher: ^1.1.0
 
@@ -71,6 +74,7 @@ dev_dependencies:
   mockito: ^5.3.2
   flutter_launcher_icons: ^0.13.1
   pigeon: ^14.0.0
+  auto_route_generator: ^7.3.2
 
 flutter_launcher_icons:
   android: "launcher_icon"

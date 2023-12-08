@@ -41,6 +41,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  auto_route:
+    dependency: "direct main"
+    description:
+      name: auto_route
+      sha256: "82f8df1d177416bc6b7a449127d0270ff1f0f633a91f2ceb7a85d4f07c3affa1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.8.4"
+  auto_route_generator:
+    dependency: "direct dev"
+    description:
+      name: auto_route_generator
+      sha256: "11067a3bcd643812518fe26c0c9ec073990286cabfd9d74b6da9ef9b913c4d22"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.3.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -173,10 +189,10 @@ packages:
     dependency: transitive
     description:
       name: code_builder
-      sha256: "02ce3596b459c666530f045ad6f96209474e8fee6e4855940a3cee65fb872ec5"
+      sha256: b2151ce26a06171005b379ecff6e08d34c470180ffe16b8e14b6d52be292b55f
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.0"
+    version: "4.8.0"
   collection:
     dependency: transitive
     description:
@@ -213,10 +229,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "7a03456c3490394c8e7665890333e91ae8a49be43542b616e414449ac358acd4"
+      sha256: "1efa911ca7086affd35f463ca2fc1799584fb6aa89883cf0af8e3664d6a02d55"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.4"
+    version: "2.3.2"
   dio:
     dependency: "direct main"
     description:
@@ -692,10 +708,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "2d79738b6bbf38a43920e2b8d189e9a3ce6cc201f4b8fc76be5e4fe377b1c38d"
+      sha256: fc0da689e5302edb6177fdd964efcb7f58912f43c28c2047a808f5bfff643d16
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.6"
+    version: "1.4.0"
   source_span:
     dependency: transitive
     description:
@@ -882,4 +898,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=3.2.0-194.0.dev <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.13.0"

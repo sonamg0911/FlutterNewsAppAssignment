@@ -1,5 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/presentation/pages/news_details/news_details_page.dart';
+import 'package:news_app/presentation/app_router.dart';
 import 'package:news_app/presentation/pages/news_listing/news_list_state.dart';
 import 'package:news_app/presentation/pages/news_listing/news_listing_provider.dart';
 import 'package:news_app/presentation/pages/news_listing/widgets/news_list_items.dart';
@@ -8,9 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/presentation/widgets/custom_error_widget.dart';
 import 'widgets/news_listing_filter.dart';
 
+@RoutePage()
 class NewsListingPage extends ConsumerStatefulWidget {
-  static const path = "/";
-
   const NewsListingPage({super.key});
 
   @override
@@ -101,7 +101,7 @@ class NewsListingPageState extends ConsumerState<NewsListingPage> {
                 final news = state.list.elementAt(itemNumber);
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(NewsDetailPage.path, arguments: news);
+                    context.router.push(NewsDetailRoute(article: news));
                   },
                   child: NewsListItem(
                     article: news,
