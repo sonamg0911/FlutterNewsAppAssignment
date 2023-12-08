@@ -7,7 +7,7 @@ import 'package:news_app/domain/usecase/news_list_usecase.dart';
 import 'package:news_app/presentation/pages/news_listing/news_list_state.dart';
 
 class NewsListProvider extends ChangeNotifier {
-  NewsListState _state = NewsListLoading();
+  NewsListState _state = const NewsListLoading();
 
   get state => _state;
   int _pageNumber = 1;

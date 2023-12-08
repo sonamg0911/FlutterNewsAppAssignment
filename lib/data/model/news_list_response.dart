@@ -1,105 +1,41 @@
-// To parse this JSON data, do
-//
-//     final newsListResponse = countryListResponseFromJson(jsonString);
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'dart:convert';
+part 'news_list_response.freezed.dart';
 
-List<NewsListResponse> newsListResponseFromJson(String str) => List<NewsListResponse>.from(json.decode(str).map((x) => NewsListResponse.fromJson(x)));
+part 'news_list_response.g.dart';
 
-String newsListResponseToJson(List<NewsListResponse> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+@freezed
+class NewsListResponse with _$NewsListResponse {
+  factory NewsListResponse({
+    required String status,
+    required int totalResults,
+    List<Article>? articles,
+  }) = _NewsListResponse;
 
-class NewsListResponse {
-  NewsListResponse({
-   this.status,
-    this.totalResults = 0,
-    this.articles,
-  });
-
-  final String? status;
-  final int totalResults;
-  final List<Article>? articles;
-
-
-  factory NewsListResponse.fromJson(Map<String, dynamic> json) => NewsListResponse(
-    status: json["status"],
-    totalResults: json["totalResults"],
-    articles: json["articles"] == null ? null : List<Article>.from(json["articles"].map((x) => Article.fromJson(x))),
-
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status":  status,
-    "totalResults": totalResults,
-    "articles": articles == null ? null : List<dynamic>.from(articles!.map((x) => x)),
-
-  };
+  factory NewsListResponse.fromJson(Map<String, Object?> json) => _$NewsListResponseFromJson(json);
 }
 
-class Article {
-  Article({
-    this.source,
-    this.author,
-    this.title,
-    this.description,
-    this.url,
-    this.urlToImage,
-    this.publishedAt,
-    this.content,
-  });
+@freezed
+class Article with _$Article {
+  factory Article(
+      {Source? source,
+      String? author,
+      String? title,
+      String? description,
+      String? url,
+      String? urlToImage,
+      String? publishedAt,
+      String? content}) = _Article;
 
-  final Source? source;
-  final String? author;
-  final String? title;
-  final String? description;
-  final String? url;
-  final String? urlToImage;
-  final String? publishedAt;
-  final String? content;
-
-
-  factory Article.fromJson(Map<String, dynamic> json) => Article(
-    source: json["source"] == null ? null : Source.fromJson(json["source"]),
-    author: json["author"],
-    title: json["title"],
-    description: json["description"],
-    url: json["url"],
-    urlToImage: json["urlToImage"],
-    publishedAt: json["publishedAt"],
-    content: json["content"],
-
-  );
-
-  Map<String, dynamic> toJson() => {
-    "source": source,
-    "author": author,
-    "title": title,
-    "description": description,
-    "url": url,
-    "urlToImage": urlToImage,
-    "publishedAt": publishedAt,
-    "content": content,
-  };
+  factory Article.fromJson(Map<String, Object?> json) => _$ArticleFromJson(json);
 }
 
+@freezed
+class Source with _$Source {
+  factory Source({
+    String? id,
+    String? name,
+  }) = _Source;
 
-
-class Source {
-  Source({
-    this.id,
-    this.name,
-  });
-
-  final String? id;
-  final String? name;
-
-  factory Source.fromJson(Map<String, dynamic> json) => Source(
-    id: json["id"],
-    name: json["name"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id":  id,
-    "name": name,
-  };
+  factory Source.fromJson(Map<String, Object?> json) => _$SourceFromJson(json);
 }
-
